@@ -1,0 +1,72 @@
+<Schema name="PHI">
+	<Dimension type="TimeDimension" name="Time">
+		<Hierarchy hasAll="false" allMemberName="Semua Waktu" primaryKey="date_sk">
+			<Table name="dim_time">
+			</Table>
+			<Level name="Tahun" column="year" type="Numeric" uniqueMembers="true" levelType="TimeYears" hideMemberIf="Never">
+			</Level>
+			<Level name="Bulan" column="month" type="Numeric" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+			</Level>
+			<Level name="Hari" column="day_of_month" type="Numeric" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+			</Level>
+		</Hierarchy>
+	</Dimension>
+	<Dimension name="Produk">
+		<Hierarchy hasAll="true" allMemberName="Semua Produk" primaryKey="sk_produk">
+			<Table name="dim_produk">
+			</Table>
+			<Level name="Kategori" column="kode_kategori" nameColumn="nama_kategori" ordinalColumn="kode_kategori" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+			<Level name="Produk" column="kode_produk" nameColumn="nama_produk" ordinalColumn="kode_produk" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+		</Hierarchy>
+	</Dimension>
+	<Dimension name="Karyawan">
+		<Hierarchy name="Karyawan" hasAll="true" allMemberName="Semua Karyawan" primaryKey="sk_karyawan">
+			<Table name="dim_karyawan">
+			</Table>
+			<Level name="Jenis Kelamin" column="jenis_kelamin" nameColumn="jenis_kelamin_desc" ordinalColumn="jenis_kelamin" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+			<Level name="Nama" column="kode_karyawan" nameColumn="nama" ordinalColumn="kode_karyawan" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+		</Hierarchy>
+	</Dimension>
+	<Dimension name="Cabang">
+		<Hierarchy name="Cabang" hasAll="true" allMemberName="Semua Cabang" primaryKey="sk_cabang">
+			<Table name="dim_cabang">
+			</Table>
+			<Level name="Propinsi" column="kode_propinsi" nameColumn="nama_propinsi" ordinalColumn="kode_propinsi" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+			<Level name="Kota" column="kode_kota" nameColumn="nama_kota" ordinalColumn="kode_kota" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+			<Level name="Cabang" column="kode_cabang" nameColumn="nama_cabang" ordinalColumn="kode_cabang" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+		</Hierarchy>
+	</Dimension>
+	<Cube name="Sales" cache="true" enabled="true" defaultMeasure="Unit Penjualan">
+		<Table name="phi_sales_fact">
+		</Table>
+		<DimensionUsage source="Karyawan" name="Karyawan" foreignKey="sk_karyawan">
+		</DimensionUsage>
+		<DimensionUsage source="Time" name="Time" foreignKey="date_sk">
+		</DimensionUsage>
+		<DimensionUsage source="Produk" name="Produk" foreignKey="sk_produk">
+		</DimensionUsage>
+		<DimensionUsage source="Cabang" name="Cabang" foreignKey="sk_cabang">
+		</DimensionUsage>
+		<Measure name="Unit Penjualan" column="jumlah_pembelian" formatString="#,###" aggregator="sum">
+		</Measure>
+		<Measure name="Total Penjualan" column="total_harga_jual" formatString="Rp #,###" aggregator="sum">
+		</Measure>
+		<Measure name="Total Biaya" column="total_biaya_cabang" formatString="Rp #,###" aggregator="sum">
+		</Measure>
+		<Measure name="Total Modal" column="total_modal_cabang" formatString="Rp #,###" aggregator="sum">
+		</Measure>
+		<CalculatedMember
+		  name="Untung Bersih"
+		  dimension="Measures">
+		<Formula>[Measures].[Total Penjualan] - [Measures].[Total Modal] - [Measures].[Total Biaya]</Formula>
+		<CalculatedMemberProperty name="FORMAT_STRING" value="Rp #,##0.00"/>
+		</CalculatedMember>
+	</Cube>
+</Schema>
