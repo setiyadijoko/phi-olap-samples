@@ -7,9 +7,9 @@
 	jdbcUrl="jdbc:mysql://localhost/phi_minimart_dw?user=root&password=" 
 	catalogUri="/WEB-INF/queries/PHI.xml">
 select
-  {[Measures].[Unit Penjualan]} on columns,
+  {[Measures].[Total Penjualan], [Measures].[Total Biaya], [Measures].[Total Modal], [Measures].[Untung Bersih]} ON COLUMNS,
   {[Karyawan].[Semua Karyawan]} ON rows
 from Sales
 </jp:mondrianQuery>
 
-<c:set var="title01" scope="session">Sakila Rental's Cube</c:set>
+<c:set var="title01" scope="session">PHI-Minimart - Cube Penjualan</c:set>
