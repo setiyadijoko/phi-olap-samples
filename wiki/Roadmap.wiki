@@ -4,9 +4,9 @@
 
 = Roadmap =
 
-Project Roadmap for year 2009 :
+Project Roadmap for year 2010 :
   * PHI-Minimart scheme and database optimization using *aggregate tables*
-  * Prepackaged Mondrian and SQL Server 2000/2005 samples
+  * Prepackaged Mondrian and SQL Server 2000/2005/2008 samples
   * Recruiting project members from educational background
 
 ----
