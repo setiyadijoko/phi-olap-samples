@@ -1,7 +1,6 @@
-#labels Featured
-#sidebar TableOfContents
-
 #summary Roadmap for phi-olap-samples.
+#labels Featured
+#sidebar DaftarIsi
 
 = Roadmap =
 
