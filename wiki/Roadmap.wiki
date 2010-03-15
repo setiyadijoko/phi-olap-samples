@@ -1,4 +1,4 @@
-#summary Our Roadmap for phi-olap-samples.
+#summary Roadmap for phi-olap-samples.
 #labels Featured
 
 = Roadmap =
