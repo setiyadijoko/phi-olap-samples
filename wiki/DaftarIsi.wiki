@@ -1,4 +1,5 @@
 #summary Daftar Isi
+http://code.google.com/images/code_sm.png
 
 ==Daftar Isi Wiki==
   * [Roadmap Roadmap]
